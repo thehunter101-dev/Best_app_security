@@ -1,0 +1,148 @@
+{% extends 'home.jinja' %}
+<title>{% block title %}{{ title1|default:"Formulario de Permisos de Módulo" }}{% endblock %}</title>
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/form.css' %}" type="text/css" media="screen" />
+    {# Add Select2 CSS if you are using it #}
+    {# <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> #}
+{% endblock styles %}
+
+{% block content %}
+    <section class="dark:bg-principal">
+        <div class="text-center" data-aos="fade" data-aos-delay="200">
+            <div class="sm:pt-28 lg:pt-4">
+                <h1 class="rounded-2xl bg-indigo-500 px-2 py-1 text-white uppercase text-4xl">
+                    {{ title1|default:"Formulario de Permisos" }}
+                </h1>
+                <h2 class="text-2xl dark:text-gray-300">{{ title2|default:"Configure los permisos del módulo para el grupo" }} "{{group.name}}"</h2>
+            </div>
+
+            {% if form.non_field_errors %}
+                <div class="mx-4 lg:mx-20 my-6" data-aos="fade-up">
+                    <div class="bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-4 rounded-lg max-w-4xl mx-auto">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0"><i class="fa-solid fa-exclamation-triangle text-red-500 text-lg"></i></div>
+                            <div class="ml-3">
+                                <h3 class="text-red-800 dark:text-red-200 font-medium">Errores en el formulario:</h3>
+                                <div class="mt-2 text-red-700 dark:text-red-300">
+                                    <ul class="list-disc list-inside space-y-1">
+                                        {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <form method="post" class="space-y-6 py-4">
+                {% csrf_token %}
+                {{ form.group }} {# Hidden field for group, should be populated by the view #}
+                <div class="mx-4 lg:mx-20" data-aos="fade">
+                    <div class="bg-white dark:bg-secundario rounded-3xl p-8 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+
+                        <!-- Campo Módulo -->
+                        <div class="mb-6 field-container {% if form.module.errors %}has-error{% endif %}">
+                            <label for="{{ form.module.id_for_label }}" class="font-black uppercase text-lg block mb-2 {% if form.module.errors %}text-red-600 dark:text-red-400{% else %}dark:text-blue-300{% endif %}">
+                                {{ form.module.label }}
+                                {% if form.module.field.required %}<span class="text-red-500">*</span>{% endif %}
+                            </label>
+                            <div class="relative">
+                                {{ form.module }}
+                                {% if form.module.errors %}
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"><i class="fa-solid fa-exclamation-circle text-red-500"></i></div>
+                                {% endif %}
+                            </div>
+                            {% if form.module.help_text %}<p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ form.module.help_text }}</p>{% endif %}
+                            {% if form.module.errors %}
+                                <div class="mt-2 text-red-600 dark:text-red-400 text-sm">
+                                    {% for error in form.module.errors %}<div class="flex items-center mt-1"><i class="fa-solid fa-circle-exclamation text-xs mr-2"></i>{{ error }}</div>{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Campo Permisos -->
+                        <div class="mb-6 field-container {% if form.permissions.errors %}has-error{% endif %}">
+                            <label for="{{ form.permissions.id_for_label }}" class="font-black uppercase text-lg block mb-2 {% if form.permissions.errors %}text-red-600 dark:text-red-400{% else %}dark:text-blue-300{% endif %}">
+                                {{ form.permissions.label }}
+                                {% if form.permissions.field.required %}<span class="text-red-500">*</span>{% endif %}
+                            </label>
+                            <div class="relative">
+                                {{ form.permissions }} {# Ensure your widget has appropriate classes, e.g., for Select2 #}
+                            </div>
+                            {% if form.permissions.help_text %}<p class="mt-2 text-sm text-gray-500 dark:text-gray-400">{{ form.permissions.help_text }}</p>{% endif %}
+                            {% if form.permissions.errors %}
+                                <div class="mt-2 text-red-600 dark:text-red-400 text-sm">
+                                    {% for error in form.permissions.errors %}<div class="flex items-center mt-1"><i class="fa-solid fa-circle-exclamation text-xs mr-2"></i>{{ error }}</div>{% endfor %}
+                                </div>
+                            {% endif %}
+                            <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                Mantenga presionada la tecla Ctrl (o Cmd en Mac) para seleccionar múltiples permisos.
+                                Los permisos disponibles pueden cambiar según el módulo seleccionado. Si cambia el módulo, la lista de permisos se actualizará.
+                            </p>
+                        </div>
+
+                        <!-- Botones de acción -->
+                        <div class="flex flex-col md:flex-row justify-center items-center mt-8 space-y-3 md:space-y-0 md:space-x-8">
+                            <button type="submit" class="w-full md:w-auto bg-blue-700 hover:bg-blue-800 text-white py-3 px-8 rounded-lg flex items-center justify-center transition-all duration-300 font-medium shadow-lg hover:shadow-xl">
+                                <i class="fa-solid fa-save mr-2"></i>{{ grabar|default:"Guardar Permisos" }}
+                            </button>
+                            <a class="w-full md:w-auto bg-red-700 hover:bg-red-800 text-white py-3 px-8 rounded-lg flex items-center justify-center transition-all duration-300 font-medium shadow-lg hover:shadow-xl" href="{{ back_url }}">
+                                <i class="fa-solid fa-xmark mr-2"></i>Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'scripts/form.js' %}"></script>
+    {# Add Select2 JS and initialization if you are using it for module or permissions #}
+    {# <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Select2 for module if desired
+            // $('#{{ form.module.id_for_label }}').select2({ placeholder: "Seleccione un módulo" });
+
+            // Initialize Select2 for permissions
+            $('#{{ form.permissions.id_for_label }}').select2({
+                placeholder: "Seleccione permisos",
+                allowClear: true,
+                // theme: "bootstrap" // or your preferred theme
+            });
+
+            // Dynamic update of permissions based on module selection (example)
+            $('#{{ form.module.id_for_label }}').on('change', function() {
+                var moduleId = $(this).val();
+                var permissionsSelect = $('#{{ form.permissions.id_for_label }}');
+
+                if (moduleId) {
+                    // AJAX call to an endpoint that returns permissions for the given module ID
+                    // For simplicity, this part is illustrative. In a real scenario,
+                    // you'd fetch this via AJAX or have all permissions data pre-loaded
+                    // and filter client-side if feasible.
+                    // Example:
+                    // $.ajax({
+                    //     url: '/path/to/get/permissions/for/module/' + moduleId + '/',
+                    //     success: function(data) {
+                    //         permissionsSelect.empty();
+                    //         $.each(data.permissions, function(key, value) {
+                    //             permissionsSelect.append($("<option></option>")
+                    //                 .attr("value", value.id).text(value.name));
+                    //         });
+                    //         permissionsSelect.trigger('change'); // Notify Select2 of update
+                    //     }
+                    // });
+                    console.log("Module changed to: " + moduleId + ". Permissions should update.");
+                    // If not using AJAX, you might need to submit the form partially or reload with new choices.
+                    // The current GroupModulePermissionForm tries to handle this on server-side __init__
+                } else {
+                    permissionsSelect.empty().trigger('change');
+                }
+            });
+        });
+    </script> #}
+{% endblock scripts %}
