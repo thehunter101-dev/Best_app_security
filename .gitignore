@@ -1,4 +1,4 @@
-db.sqlite3
-package.json
-node_modules/
-yarn.lock
+./db.sqlite3
+./package.json
+./node_modules/
+./yarn.lock
