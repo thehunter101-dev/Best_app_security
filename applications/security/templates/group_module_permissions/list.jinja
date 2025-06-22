@@ -110,7 +110,7 @@
         </div>
     </section>
 
-    {% include 'templates/fragments/delete.html' %}
+    {% include 'fragments/delete.html' %}
     <script type="text/javascript">
         // The URL for delete needs to be dynamic based on the group_pk from the view context for GMP
         const deleteUrlBase = "{% url 'security:groupmodulepermission_delete' 0 %}".replace(/0\/?$/, '');
