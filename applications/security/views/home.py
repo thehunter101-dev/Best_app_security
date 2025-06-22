@@ -3,7 +3,7 @@ from applications.security.components.menu_module import MenuModule
 from applications.security.components.mixin_crud import PermissionMixin
 
 class ModuloTemplateView(PermissionMixin,TemplateView):
-    template_name = 'home.html'
+    template_name = 'home.jinja'
    
     def get_context_data(self, **kwargs):
         #context = super().get_context_data(**kwargs)
