@@ -1,5 +1,5 @@
-./db.sqlite3
-./package.json
-./node_modules/
-./yarn.lock
-prettierrc.toml
+db.sqlite3
+package.json
+node_modules/
+yarn.lock
+.prettierrc.toml

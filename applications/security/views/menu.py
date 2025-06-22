@@ -10,7 +10,7 @@ from django.db.models import Q
 
 
 class MenuListView(PermissionMixin, ListViewMixin, ListView):
-    template_name = 'security/menus/list.html'
+    template_name = 'menus/list.jinja'
     model = Menu
     context_object_name = 'menus'
     permission_required = 'view_menu'
@@ -31,7 +31,7 @@ class MenuListView(PermissionMixin, ListViewMixin, ListView):
 
 class MenuCreateView(PermissionMixin, CreateViewMixin, CreateView):
     model = Menu
-    template_name = 'security/menus/form.html'
+    template_name = 'menus/form.jinja'
     form_class = MenuForm
     success_url = reverse_lazy('security:menu_list')
     permission_required = 'add_menu'
