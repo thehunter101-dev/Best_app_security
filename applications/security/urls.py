@@ -8,13 +8,18 @@ from applications.security.views.group import (
     GroupModulePermissionListView, GroupModulePermissionCreateView,
     GroupModulePermissionUpdateView, GroupModulePermissionDeleteView
 )
-from applications.security.views.user import UserUpdateView
-# Placeholder for UserListView if it were to be created
 from django.views.generic import TemplateView
-
+from applications.security.views import user as user_views # Import user views
 
 app_name='security' # define un espacio de nombre para la aplicacion
 urlpatterns = [
+
+  # Rutas de Usuarios
+  path('users/', user_views.UserListView.as_view(), name="user_list"),
+  path('users/create/', user_views.UserCreateView.as_view(), name="user_create"),
+  path('users/<int:pk>/', user_views.UserDetailView.as_view(), name="user_detail"),
+  path('users/update/<int:pk>/', user_views.UserUpdateView.as_view(), name="user_update"),
+  path('users/delete/<int:pk>/', user_views.UserDeleteView.as_view(), name="user_delete"),
 
   # rutas de modulos
   path('module_list/',ModuleListView.as_view() ,name="module_list"),
