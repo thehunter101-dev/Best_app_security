@@ -9,7 +9,7 @@ from django.db.models import Q
 
 
 class ModuleListView(PermissionMixin, ListViewMixin, ListView):
-    template_name = 'security/modules/list.html'
+    template_name = 'modules/list.jinja'
     model = Module
     context_object_name = 'modules'
     permission_required = 'view_module'
@@ -30,7 +30,7 @@ class ModuleListView(PermissionMixin, ListViewMixin, ListView):
 
 class ModuleCreateView(PermissionMixin, CreateViewMixin, CreateView):
     model = Module
-    template_name = 'security/modules/form.html'
+    template_name = 'modules/form.jinja'
     form_class = ModuleForm
     success_url = reverse_lazy('security:module_list')
     permission_required = 'add_module'
@@ -50,7 +50,7 @@ class ModuleCreateView(PermissionMixin, CreateViewMixin, CreateView):
 
 class ModuleUpdateView(PermissionMixin, UpdateViewMixin, UpdateView):
     model = Module
-    template_name = 'security/modules/form.html'
+    template_name = 'modules/form.jinja'
     form_class = ModuleForm
     success_url = reverse_lazy('security:module_list')
     permission_required = 'change_module'

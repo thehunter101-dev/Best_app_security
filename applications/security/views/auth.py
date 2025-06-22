@@ -20,7 +20,7 @@ def signin(request):
     if request.method == "GET":
         # Obtener mensajes de éxito de la cola de mensajes
         success_messages = messages.get_messages(request)
-        return render(request, "security/auth/signin.html", {
+        return render(request, "auth/signin.jinja", {
             "form": AuthenticationForm(),
             "success_messages": success_messages,  # Pasar mensajes de éxito a la plantilla
             **data
@@ -29,19 +29,21 @@ def signin(request):
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
+            print(username)
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect("home")
             else:
-                return render(request, "security/auth/signin.html", {
+                return render(request, "auth/signin.jinja", {
                     "form": form,
                     "error": "El usuario o la contraseña son incorrectos",
                     **data
                 })
         else:
-            return render(request, "security/auth/signin.html", {
+            print(form.errors)
+            return render(request, "auth/signin.jinja", {
                 "form": form,
                  "error": "Datos invalidos",
                 **data

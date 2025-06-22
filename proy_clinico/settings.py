@@ -55,7 +55,10 @@ INSTALLED_APPS = INSTALLED_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 TAILWIND_APP_NAME = 'theme'
 
-NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd" 
+"""
+Descomentar si estas en windows
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+"""
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -91,20 +94,15 @@ WSGI_APPLICATION = 'proy_clinico.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'medicos',
-        'USER': 'postgres',
-        'PASSWORD': '123',
-        'HOST': 'localhost',  # o la IP del servidor de base de datos
-        'PORT': '5432',        # puerto por defecto de PostgreSQL
+        'NAME': 'postgres',
+        'USER': 'postgres.sbdtrmswjyopwrdcflxz',
+        'PASSWORD': 'root',
+        'HOST': 'aws-0-us-east-2.pooler.supabase.com',  # o la IP del servidor de base de datos
+        'PORT': '6543',        # puerto por defecto de PostgreSQL
     }
 }
 # Password validation
