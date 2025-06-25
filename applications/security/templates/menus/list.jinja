@@ -2,11 +2,7 @@
 <title>{% block title %}{{ title }}{% endblock %}</title>
 {% block content %}
     {% load static %}
-<<<<<<< HEAD
     {% include 'fragments/messages.jinja' %}
-=======
-    {% include 'fragments/messages.html' %}
->>>>>>> full-crud
     <section class="dark:bg-principal mt-2">
         <div class="text-center" data-aos="fade-up" data-aos-delay="200">
             <div class="sm:pt-8 lg:pt-4">
@@ -177,11 +173,7 @@
         </div>
     </section>
 
-<<<<<<< HEAD
     {% include 'fragments/delete.jinja' %}
-=======
-    {% include 'fragments/delete.html' %}
->>>>>>> full-crud
     <script type="text/javascript">
         const deleteUrlBase = "{% url 'security:menu_delete' 0 %}".replace(/0\/?$/, '')
     </script>

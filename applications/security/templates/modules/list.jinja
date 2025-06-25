@@ -2,7 +2,7 @@
 <title>{% block title %}{{ title }}{% endblock %}</title>
 {% block content %}
     {% load static %}
-    {% include 'fragments/messages.html' %}
+    {% include 'fragments/messages.jinja' %}
 <section class="min-h-screen bg-gray-900 py-8">
     <div class="container mx-auto px-4">
         <!-- Header -->
@@ -255,7 +255,7 @@
     </div>
 </section>
 
-    {% include 'fragments/delete.html' %}
+    {% include 'fragments/delete.jinja' %}
 
     <script type="text/javascript">
         const deleteUrlBase = "{% url 'security:module_delete' 0 %}".replace(/0\/?$/, '')

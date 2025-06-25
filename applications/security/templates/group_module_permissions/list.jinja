@@ -2,7 +2,7 @@
 <title>{% block title %}{{ title1|default:"Permisos de Módulos por Grupo" }}{% endblock %}</title>
 {% block content %}
     {% load static %}
-    {% include 'fragments/messages.html' %}
+    {% include 'fragments/messages.jinja' %}
     <section class="dark:bg-principal mt-2">
         <div class="text-center" data-aos="fade-up" data-aos-delay="200">
             <div class="sm:pt-8 lg:pt-4">
@@ -198,7 +198,7 @@
         </div>
     </section>
 
-    {% include 'fragments/delete.html' %}
+    {% include 'fragments/delete.jinja' %}
     <script>
         // Pasar el ID del grupo desde el contexto
         window.groupPk = '{{ group.id }}'
