@@ -9,6 +9,7 @@ from applications.security.components.mixin_crud import CreateViewMixin, DeleteV
 from applications.security.forms.group import GroupForm
 from applications.security.forms.group_module_permission import GroupModulePermissionForm
 from applications.security.models import User, GroupModulePermission # Assuming User model is needed, adjust if not
+from django.shortcuts import get_object_or_404
 
 # Group CRUD Views
 class GroupListView(LoginRequiredMixin, PermissionMixin, ListViewMixin, ListView):
@@ -224,11 +225,17 @@ class GroupModulePermissionDeleteView(LoginRequiredMixin, PermissionMixin, Delet
     template_name = 'core/delete.html'
     permission_required = 'delete_groupmodulepermission'
 
+    def get_object(self, queryset=None):
+        """
+        Sobrescribe para asegurarse de que solo se elimine el objeto que coincida
+        con el pk y el group_pk.
+        """
+        group_pk = self.kwargs.get('group_pk')
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(GroupModulePermission, pk=pk, group__pk=group_pk)
+
     def get_success_url(self):
-        # Similarly, get group_pk from the object before it's deleted.
-        # Store it if needed, or ensure the object is available via a different mechanism if deletion logic in mixin removes it too soon.
-        # For now, assuming self.object is available until after success_url is determined.
-        return reverse_lazy('security:groupmodulepermission_list', kwargs={'group_pk': self.object.group.pk})
+        return reverse_lazy('security:groupmodulepermission_list', kwargs={'group_pk': self.kwargs['group_pk']})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -242,8 +249,7 @@ class GroupModulePermissionDeleteView(LoginRequiredMixin, PermissionMixin, Delet
         module_name = self.object.module.name
         group_name = self.object.group.name
 
-        # Perform the delete operation
-        response = super().form_valid(form) # This calls self.object.delete()
+        response = super().form_valid(form)
 
         messages.success(self.request, f"Éxito al eliminar los permisos del módulo {module_name} para el grupo {group_name}.")
         return response

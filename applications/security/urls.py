@@ -19,7 +19,7 @@ app_name='security' # define un espacio de nombre para la aplicacion
 urlpatterns = [
 
   # Rutas de Usuarios
-  path('users/', user_views.UserListView.as_view(), name="user_list"),
+  path('usuario_list/', user_views.UserListView.as_view(), name="user_list"),
   path('users/create/', user_views.UserCreateView.as_view(), name="user_create"),
   path('users/<int:pk>/', user_views.UserDetailView.as_view(), name="user_detail"),
   path('users/update/<int:pk>/', user_views.UserUpdateView.as_view(), name="user_update"),
@@ -48,11 +48,14 @@ urlpatterns = [
   path('group/<int:group_pk>/permissions/', GroupModulePermissionListView.as_view(), name='groupmodulepermission_list'),
   path('group/<int:group_pk>/permissions/add/', GroupModulePermissionCreateView.as_view(), name='groupmodulepermission_create'),
   path('groupmodulepermission/<int:pk>/update/', GroupModulePermissionUpdateView.as_view(), name='groupmodulepermission_update'),
-  path('groupmodulepermission/<int:pk>/delete/', GroupModulePermissionDeleteView.as_view(), name='groupmodulepermission_delete'),
+    path(
+        'group/<int:group_pk>/permissions/<int:pk>/delete/',
+        GroupModulePermissionDeleteView.as_view(),
+        name='groupmodulepermission_delete'
+    ),
 
   # rutas de usuarios
   # Placeholder for user_list - replace with actual UserListView when created
-  path('user_list/', TemplateView.as_view(template_name="core/coming_soon.html"), name='user_list'),
   path('user_update/<int:pk>/', UserUpdateView.as_view(), name='user_update'),
   # Add other user routes (create, detail, delete) here when implemented
 
