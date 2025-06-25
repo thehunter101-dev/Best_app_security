@@ -12,6 +12,4 @@ class ModuloTemplateView(PermissionMixin,TemplateView):
         context["title1"]= "Modulos Disponibles"
         MenuModule(self.request).fill(context)
         
-        print("estoy saliendo en el modulo template view")
-       
         return context

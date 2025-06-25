@@ -25,7 +25,6 @@ class MenuListView(PermissionMixin, ListViewMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['create_url'] = reverse_lazy('security:menu_create')
-        print(context['permissions'])
         return context
 
 
@@ -51,7 +50,7 @@ class MenuCreateView(PermissionMixin, CreateViewMixin, CreateView):
 
 class MenuUpdateView(PermissionMixin, UpdateViewMixin, UpdateView):
     model = Menu
-    template_name = 'security/menus/form.html'
+    template_name = 'menus/form.jinja'
     form_class = MenuForm
     success_url = reverse_lazy('security:menu_list')
     permission_required = 'change_menu'

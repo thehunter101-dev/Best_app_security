@@ -1,44 +1,43 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const sr = ScrollReveal({
+        reset: true,
+    })
     const userDropdown = document.getElementById('userDropdown')
     const userDropdownMenu = document.getElementById('userDropdownMenu')
-    const userDropdownIcon = document.getElementById('userDropdownIcon')
 
     if (userDropdown && userDropdownMenu) {
         userDropdown.addEventListener('click', function (e) {
             e.preventDefault()
-            e.stopPropagation()
-
-            const isVisible = !userDropdownMenu.classList.contains('opacity-0')
-
-            if (isVisible) {
-                // Hide dropdown
-                userDropdownMenu.classList.add('opacity-0', 'invisible', 'scale-95')
-                userDropdownMenu.classList.remove('opacity-100', 'visible', 'scale-100')
-                userDropdownIcon.classList.remove('rotate-180')
-            } else {
-                // Show dropdown
-                userDropdownMenu.classList.remove('opacity-0', 'invisible', 'scale-95')
-                userDropdownMenu.classList.add('opacity-100', 'visible', 'scale-100')
-                userDropdownIcon.classList.add('rotate-180')
+            if (userDropdownMenu) {
+                userDropdownMenu.classList.toggle('hidden')
+                sr.reveal(userDropdownMenu, {
+                    origin: 'top',
+                    distance: '50px',
+                    duration: 400,
+                    opacity: 0,
+                    easing: 'ease-out',
+                })
             }
         })
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', function (e) {
-            if (!userDropdown.contains(e.target) && !userDropdownMenu.contains(e.target)) {
-                userDropdownMenu.classList.add('opacity-0', 'invisible', 'scale-95')
-                userDropdownMenu.classList.remove('opacity-100', 'visible', 'scale-100')
-                userDropdownIcon.classList.remove('rotate-180')
+            if (
+                userDropdown &&
+                userDropdownMenu &&
+                !userDropdown.contains(e.target) &&
+                !userDropdownMenu.contains(e.target)
+            ) {
+                userDropdownMenu.classList.add('hidden')
+                sr.reveal(userDropdownMenu, {
+                    origin: 'top',
+                    distance: '50px',
+                    duration: 400,
+                    opacity: 1,
+                    easing: 'ease-in',
+                })
             }
         })
-
-        // Prevent dropdown from closing when clicking inside
-        userDropdownMenu.addEventListener('click', function (e) {
-            e.stopPropagation()
-        })
-    }
-
-    // Groups selector functionality
+    } // Groups selector functionality
     const groupsSelector = document.querySelector('select')
     if (groupsSelector) {
         groupsSelector.addEventListener('change', function () {
@@ -66,29 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     // Add click ripple effect to buttons
-    const buttons = document.querySelectorAll('button')
-    buttons.forEach((button) => {
-        button.addEventListener('click', function (e) {
-            if (this.disabled) return
-
-            const ripple = document.createElement('span')
-            const rect = this.getBoundingClientRect()
-            const size = Math.max(rect.width, rect.height)
-            const x = e.clientX - rect.left - size / 2
-            const y = e.clientY - rect.top - size / 2
-
-            ripple.style.width = ripple.style.height = size + 'px'
-            ripple.style.left = x + 'px'
-            ripple.style.top = y + 'px'
-            ripple.classList.add('ripple')
-
-            this.appendChild(ripple)
-
-            setTimeout(() => {
-                ripple.remove()
-            }, 600)
-        })
-    })
 
     // Smooth scroll to modules on stats card click
     statsCards.forEach((card) => {
@@ -116,24 +92,6 @@ document.getElementById('groupSelect').addEventListener('change', function() {
 });
 */
 
-// Add intersection observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px',
-}
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.style.animation = 'slideInRight 0.6s ease-out forwards'
-        }
-    })
-}, observerOptions)
-
-// Observe all module cards
-document.querySelectorAll('.module-card').forEach((card) => {
-    observer.observe(card)
-})
 document.getElementById('groupSelect').addEventListener('change', function () {
     const selectedGroupId = this.value
 

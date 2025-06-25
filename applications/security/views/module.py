@@ -24,7 +24,6 @@ class ModuleListView(PermissionMixin, ListViewMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['create_url'] = reverse_lazy('security:module_create')
-        print(context['permissions'])
         return context
 
 
