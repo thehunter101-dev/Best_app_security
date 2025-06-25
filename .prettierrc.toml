@@ -8,17 +8,10 @@ bracketSpacing = true
 
 plugins = [
     "prettier-plugin-jinja-template",
-<<<<<<< HEAD
     #"prettier-plugin-tailwindcss"
-=======
->>>>>>> full-crud
 ]
 
 [[overrides]]
 files = ["*.html", "*.jinja", "**/templates/**/*.html", "**/templates/**/*.jinja"]
 [overrides.options]
 parser = "jinja-template"
-<<<<<<< HEAD
-=======
-
->>>>>>> full-crud
