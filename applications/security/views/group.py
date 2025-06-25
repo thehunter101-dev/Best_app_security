@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.db.models import Q
-
+from django.http import HttpResponse
 from applications.security.components.mixin_crud import CreateViewMixin, DeleteViewMixin, ListViewMixin, PermissionMixin, UpdateViewMixin
 from applications.security.forms.group import GroupForm
 from applications.security.forms.group_module_permission import GroupModulePermissionForm
@@ -12,7 +12,7 @@ from applications.security.models import User, GroupModulePermission # Assuming 
 
 # Group CRUD Views
 class GroupListView(LoginRequiredMixin, PermissionMixin, ListViewMixin, ListView):
-    template_name = 'security/groups/list.jinja' # Adjusted path
+    template_name = 'groups/list.jinja' # Adjusted path
     model = Group
     context_object_name = 'groups'
     permission_required = 'view_group' # Django's default permission for Group model
@@ -35,7 +35,7 @@ class GroupListView(LoginRequiredMixin, PermissionMixin, ListViewMixin, ListView
 
 class GroupCreateView(LoginRequiredMixin, PermissionMixin, CreateViewMixin, CreateView):
     model = Group
-    template_name = 'security/groups/form.jinja' # Adjusted path
+    template_name = 'groups/form.jinja' # Adjusted path
     form_class = GroupForm
     success_url = reverse_lazy('security:group_list')
     permission_required = 'add_group' # Django's default permission
@@ -57,7 +57,7 @@ class GroupCreateView(LoginRequiredMixin, PermissionMixin, CreateViewMixin, Crea
 
 class GroupUpdateView(LoginRequiredMixin, PermissionMixin, UpdateViewMixin, UpdateView):
     model = Group
-    template_name = 'security/groups/form.jinja' # Adjusted path
+    template_name = 'groups/form.jinja' # Adjusted path
     form_class = GroupForm
     success_url = reverse_lazy('security:group_list')
     permission_required = 'change_group' # Django's default permission
@@ -109,7 +109,7 @@ class GroupDeleteView(LoginRequiredMixin, PermissionMixin, DeleteViewMixin, Dele
 # Placeholder for GroupDetailView if needed later, e.g., to show users in a group or manage module permissions
 class GroupDetailView(LoginRequiredMixin, PermissionMixin, DetailView):
     model = Group
-    template_name = 'security/groups/detail.jinja' # Create this template later
+    template_name = 'groups/detail.jinja' # Create this template later
     context_object_name = 'group'
     permission_required = 'view_group'
 
@@ -126,7 +126,7 @@ class GroupDetailView(LoginRequiredMixin, PermissionMixin, DetailView):
 
 # GroupModulePermission CRUD Views
 class GroupModulePermissionListView(LoginRequiredMixin, PermissionMixin, ListViewMixin, ListView):
-    template_name = 'security/group_module_permissions/list.jinja'
+    template_name = 'group_module_permissions/list.jinja'
     model = GroupModulePermission
     context_object_name = 'group_module_permissions'
     permission_required = 'view_groupmodulepermission' # Assumes this permission exists
@@ -150,7 +150,7 @@ class GroupModulePermissionListView(LoginRequiredMixin, PermissionMixin, ListVie
 
 class GroupModulePermissionCreateView(LoginRequiredMixin, PermissionMixin, CreateViewMixin, CreateView):
     model = GroupModulePermission
-    template_name = 'security/group_module_permissions/form.jinja'
+    template_name = 'group_module_permissions/form.jinja'
     form_class = GroupModulePermissionForm
     permission_required = 'add_groupmodulepermission'
 
@@ -190,7 +190,7 @@ class GroupModulePermissionCreateView(LoginRequiredMixin, PermissionMixin, Creat
 
 class GroupModulePermissionUpdateView(LoginRequiredMixin, PermissionMixin, UpdateViewMixin, UpdateView):
     model = GroupModulePermission
-    template_name = 'security/group_module_permissions/form.jinja'
+    template_name = 'group_module_permissions/form.jinja'
     form_class = GroupModulePermissionForm
     permission_required = 'change_groupmodulepermission'
 

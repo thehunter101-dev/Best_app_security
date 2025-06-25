@@ -2,63 +2,63 @@
 .field-container.has-error input,
 .field-container.has-error select,
 .field-container.has-error textarea {
-    border-color: #ef4444 !important;
-    background-color: rgba(254, 242, 242, 0.5) !important;
-    color: #991b1b !important;
+  border-color: #ef4444 !important;
+  background-color: rgba(254, 242, 242, 0.5) !important;
+  color: #991b1b !important;
 }
 
 .field-container.has-error input:focus,
 .field-container.has-error select:focus,
 .field-container.has-error textarea:focus {
-    border-color: #dc2626 !important;
-    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
-    outline: none !important;
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+  outline: none !important;
 }
 
 /* Dark mode para campos con errores */
 @media (prefers-color-scheme: dark) {
-    .field-container.has-error input,
-    .field-container.has-error select,
-    .field-container.has-error textarea {
-        background-color: rgba(153, 27, 27, 0.2) !important;
-        color: #fca5a5 !important;
-        border-color: #ef4444 !important;
-    }
+  .field-container.has-error input,
+  .field-container.has-error select,
+  .field-container.has-error textarea {
+    background-color: rgba(153, 27, 27, 0.2) !important;
+    color: #fca5a5 !important;
+    border-color: #ef4444 !important;
+  }
 
-    .field-container.has-error input:focus,
-    .field-container.has-error select:focus,
-    .field-container.has-error textarea:focus {
-        box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.4) !important;
-    }
+  .field-container.has-error input:focus,
+  .field-container.has-error select:focus,
+  .field-container.has-error textarea:focus {
+    box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.4) !important;
+  }
 }
 
 /* Estilos para checkboxes con errores */
-.field-container.has-error input[type='checkbox'] {
-    border-color: #ef4444 !important;
-    accent-color: #ef4444 !important;
+.field-container.has-error input[type="checkbox"] {
+  border-color: #ef4444 !important;
+  accent-color: #ef4444 !important;
 }
 
 /* Animación sutil para errores */
 @keyframes shake {
-    0%,
-    100% {
-        transform: translateX(0);
-    }
-    10%,
-    30%,
-    50%,
-    70%,
-    90% {
-        transform: translateX(-2px);
-    }
-    20%,
-    40%,
-    60%,
-    80% {
-        transform: translateX(2px);
-    }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(2px);
+  }
 }
 
 .field-container.has-error {
-    animation: shake 0.5s ease-in-out;
+  animation: shake 0.5s ease-in-out;
 }

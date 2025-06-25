@@ -46,10 +46,10 @@ class GroupModulePermissionForm(forms.ModelForm):
 
         # Populate permissions based on selected module (if any) or existing instance
         selected_module_id = None
-        if self.data.get('module'): # If form submitted
+        if self.data.get('module'):  # Formulario enviado
             selected_module_id = self.data.get('module')
-        elif self.instance and self.instance.module: # If editing existing instance
-            selected_module_id = self.instance.module.id
+        elif self.instance and getattr(self.instance, 'module_id', None):
+            selected_module_id = self.instance.module_id
 
         if selected_module_id:
             try:
@@ -60,7 +60,7 @@ class GroupModulePermissionForm(forms.ModelForm):
                 # For now, let's assume Module model has a content_type or similar
                 # or that permissions are generically applicable.
                 # A more robust way would be to filter permissions by content_type of models related to the module
-                self.fields['permissions'].queryset = Permission.objects.filter(content_type__app_label=module._meta.app_label)
+                self.fields['permissions'].queryset = module.permissions.all()
                 # Or, if Module itself defines its relevant permissions:
                 # self.fields['permissions'].queryset = module.permissions.all()
             except Module.DoesNotExist:
@@ -68,6 +68,7 @@ class GroupModulePermissionForm(forms.ModelForm):
         else:
              # Default to all permissions if no module context, or narrow down as needed
             self.fields['permissions'].queryset = Permission.objects.all()
+
 
 
     def clean(self):

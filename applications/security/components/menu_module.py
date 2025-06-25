@@ -58,12 +58,6 @@ class MenuModule:
         group_module_permissions = group_module_permission_list.filter(
             module__menu_id=group_module_permission.module.menu_id
         )
-        print("Grupo: ",group_module_permission.group)
-        print("menus unicos")
-        print(group_module_permission.module.menu)
-        print("modulos del menu")
-        print(group_module_permission),
-       
         return {
             'menu': group_module_permission.module.menu,
             'group_module_permission_list': group_module_permissions,

@@ -2,7 +2,7 @@
 <title>{% block title %}{{ title }}{% endblock %}</title>
 {% block content %}
     {% load static %}
-    {% include 'templates/fragments/messages.html' %}
+    {% include 'fragments/messages.html' %}
     <section class="dark:bg-principal mt-2">
         <div class="text-center" data-aos="fade-up" data-aos-delay="200">
             <div class="sm:pt-8 lg:pt-4">
@@ -173,7 +173,7 @@
         </div>
     </section>
 
-    {% include 'tempaltes/fragments/delete.html' %}
+    {% include 'fragments/delete.html' %}
     <script type="text/javascript">
         const deleteUrlBase = "{% url 'security:menu_delete' 0 %}".replace(/0\/?$/, '')
     </script>

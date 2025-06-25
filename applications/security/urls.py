@@ -1,6 +1,7 @@
 from django.urls import path
 
 from applications.security.views.auth import signin, signout
+from applications.security.components.json import module_permissions
 from applications.security.views.menu import MenuCreateView, MenuDeleteView, MenuListView, MenuUpdateView
 from applications.security.views.module import ModuleCreateView, ModuleDeleteView, ModuleListView, ModuleUpdateView
 from applications.security.views.group import (
@@ -8,7 +9,10 @@ from applications.security.views.group import (
     GroupModulePermissionListView, GroupModulePermissionCreateView,
     GroupModulePermissionUpdateView, GroupModulePermissionDeleteView
 )
+from applications.security.views.user import UserUpdateView
+# Placeholder for UserListView if it were to be created
 from django.views.generic import TemplateView
+
 from applications.security.views import user as user_views # Import user views
 
 app_name='security' # define un espacio de nombre para la aplicacion
@@ -34,7 +38,7 @@ urlpatterns = [
   path('menu_delete/<int:pk>/', MenuDeleteView.as_view(),name='menu_delete'),
 
   # rutas de grupos
-  path('group_list/', GroupListView.as_view(), name="group_list"),
+  path('grupos_list/', GroupListView.as_view(), name="group_list"),
   path('group_create/', GroupCreateView.as_view(), name="group_create"),
   path('group_detail/<int:pk>/', GroupDetailView.as_view(), name='group_detail'),
   path('group_update/<int:pk>/', GroupUpdateView.as_view(), name='group_update'),
@@ -55,4 +59,7 @@ urlpatterns = [
   # rutas de autenticacion
   path('logout/', signout, name='signout'),
   path('signin/', signin, name='signin'),
+
+  # Urls de jsons
+  path('module/<int:module_id>/permissions/', module_permissions, name='module_permissions'),
 ]
